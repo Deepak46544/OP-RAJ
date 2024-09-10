@@ -19,7 +19,7 @@ loop = asyncio.get_event_loop()
 TOKEN = '7437346079:AAEWJfRBsX0IsOfa_G8Vynx1F69GWcJDFPQ'
 MONGO_URI = 'mongodb+srv://admin:kpR4ObsewTySq48I@test.zeqrmgb.mongodb.net/test_db?retryWrites=true&w=majority&appName=piro&tlsAllowInvalidCertificates=true'
 FORWARD_CHANNEL_ID = -1002159950332
-CHANNEL_ID = -1002159950332
+CHANNEL_ID = 5674869424
 error_channel_id = -1002159950332
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -235,7 +235,7 @@ def handle_message(message):
         bot.reply_to(message, "*Instant++ Plan selected*", parse_mode='Markdown')
         attack_command(message)
     elif message.text == "Canary Download✔️":
-        bot.send_message(message.chat.id, "*Please use the following link for Canary Download: https://t.me/SOULCRACKS/10599*", parse_mode='Markdown')
+        bot.send_message(message.chat.id, "*Please use the following link for Canary Download: https://t.me/+1YTrwKN4Z-lkZTJl*", parse_mode='Markdown')
     elif message.text == "My Account🏦":
         user_id = message.from_user.id
         user_data = users_collection.find_one({"user_id": user_id})
