@@ -16,11 +16,11 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 loop = asyncio.get_event_loop()
 
-TOKEN = '7437346079:AAEWJfRBsX0IsOfa_G8Vynx1F69GWcJDFPQ'
+TOKEN = '7311450065:AAG75zxiiD5M7OkRXMgkfH96Hnl5gck60Lk'
 MONGO_URI = 'mongodb+srv://admin:kpR4ObsewTySq48I@test.zeqrmgb.mongodb.net/test_db?retryWrites=true&w=majority&appName=piro&tlsAllowInvalidCertificates=true'
-FORWARD_CHANNEL_ID = -1002159950332
-CHANNEL_ID = -1002159950332
-error_channel_id = -1002159950332
+FORWARD_CHANNEL_ID = -1002037296029
+CHANNEL_ID = 5674869424
+error_channel_id = -1002037296029
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -129,14 +129,14 @@ def approve_or_disapprove_user(message):
             {"$set": {"plan": plan, "valid_until": valid_until, "access_count": 0}},
             upsert=True
         )
-        msg_text = f"*User {target_user_id} approved with plan {plan} for {days} days.*"
+        msg_text = f"*User {target_user_id} approved with plan {plan} for {days} days.@raj14754*"
     else:  # disapprove
         users_collection.update_one(
             {"user_id": target_user_id},
             {"$set": {"plan": 0, "valid_until": "", "access_count": 0}},
             upsert=True
         )
-        msg_text = f"*User {target_user_id} disapproved and reverted to free.*"
+        msg_text = f"*User {target_user_id} disapproved and reverted to free.@raj14754*"
 
     bot.send_message(chat_id, msg_text, parse_mode='Markdown')
     bot.send_message(CHANNEL_ID, msg_text, parse_mode='Markdown')
@@ -148,18 +148,18 @@ def attack_command(message):
     try:
         user_data = users_collection.find_one({"user_id": user_id})
         if not user_data or user_data['plan'] == 0:
-            bot.send_message(chat_id, "You are not approved to use this bot. Please contact the administrator.")
+            bot.send_message(chat_id, "You are not approved to use this bot. Please contact the administrator.@raj14754")
             return
 
         if user_data['plan'] == 1 and users_collection.count_documents({"plan": 1}) > 99:
-            bot.send_message(chat_id, "Your Instant Plan 🧡 is currently not available due to limit reached.")
+            bot.send_message(chat_id, "Your Instant Plan 🧡 is currently not available due to limit reached.@raj14754")
             return
 
         if user_data['plan'] == 2 and users_collection.count_documents({"plan": 2}) > 499:
-            bot.send_message(chat_id, "Your Instant++ Plan 💥 is currently not available due to limit reached.")
+            bot.send_message(chat_id, "Your Instant++ Plan 💥 is currently not available due to limit reached.@raj14754")
             return
 
-        bot.send_message(chat_id, "Enter the target IP, port, and duration (in seconds) separated by spaces.")
+        bot.send_message(chat_id, "Enter the target IP, port, and duration (in seconds) separated by spaces.@raj14754")
         bot.register_next_step_handler(message, process_attack_command)
     except Exception as e:
         logging.error(f"Error in attack command: {e}")
@@ -249,12 +249,12 @@ def handle_message(message):
                         f"Valid Until: {valid_until}\n"
                         f"Current Time: {current_time}*")
         else:
-            response = "*No account information found. Please contact the administrator.*"
+            response = "*No account information found. Please contact the administrator.@raj14754*"
         bot.reply_to(message, response, parse_mode='Markdown')
     elif message.text == "Help❓":
         bot.reply_to(message, "*Help selected*", parse_mode='Markdown')
     elif message.text == "Contact admin✔️":
-        bot.reply_to(message, "*Contact admin selected*", parse_mode='Markdown')
+        bot.reply_to(message, "*Contact admin selected @raj14754*", parse_mode='Markdown')
     else:
         bot.reply_to(message, "*Invalid option*", parse_mode='Markdown')
 
