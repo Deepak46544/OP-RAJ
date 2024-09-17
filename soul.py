@@ -17,11 +17,11 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 loop = asyncio.get_event_loop()
 
 TOKEN = '7311450065:AAG75zxiiD5M7OkRXMgkfH96Hnl5gck60Lk'
-MONGO_URI = 'mongodb+srv://Soul:JYAuvlizhw7wqLOb@soul.tsga4.mongodb.net'
-FORWARD_CHANNEL_ID = -100
-CHANNEL_ID = -100
-# Admin user IDs
-admin_id = {"5674869424"}
+MONGO_URI = 'mongodb+srv://Soul:JYAuvlizhw7wqLOb@soul.tsga4.mongodb.net/'
+FORWARD_CHANNEL_ID = -1002159950332
+CHANNEL_ID = -1002159950332
+error_channel_id = -1002159950332
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
@@ -129,14 +129,14 @@ def approve_or_disapprove_user(message):
             {"$set": {"plan": plan, "valid_until": valid_until, "access_count": 0}},
             upsert=True
         )
-        msg_text = f"*User {target_user_id} approved with plan {plan} for {days} days.@raj14754*"
+        msg_text = f"*User {target_user_id} approved with plan {plan} for {days} days.*"
     else:  # disapprove
         users_collection.update_one(
             {"user_id": target_user_id},
             {"$set": {"plan": 0, "valid_until": "", "access_count": 0}},
             upsert=True
         )
-        msg_text = f"*User {target_user_id} disapproved and reverted to free.@raj14754*"
+        msg_text = f"*User {target_user_id} disapproved and reverted to free.*"
 
     bot.send_message(chat_id, msg_text, parse_mode='Markdown')
     bot.send_message(CHANNEL_ID, msg_text, parse_mode='Markdown')
@@ -176,11 +176,11 @@ def attack_command(message):
             return
 
         if user_data['plan'] == 1 and users_collection.count_documents({"plan": 1}) > 99:
-            bot.send_message(chat_id, "*Your Instant Plan 🧡 is currently not available due to limit reached.@raj14754*", parse_mode='Markdown')
+            bot.send_message(chat_id, "*Your Instant Plan 🧡 is currently not available due to limit reached.*", parse_mode='Markdown')
             return
 
         if user_data['plan'] == 2 and users_collection.count_documents({"plan": 2}) > 499:
-            bot.send_message(chat_id, "*Your Instant++ Plan 💥 is currently not available due to limit reached.@raj14754*", parse_mode='Markdown')
+            bot.send_message(chat_id, "*Your Instant++ Plan 💥 is currently not available due to limit reached.*", parse_mode='Markdown')
             return
 
         bot.send_message(chat_id, "*Enter the target IP, port, and duration (in seconds) separated by spaces.@raj14754*", parse_mode='Markdown')
@@ -192,12 +192,12 @@ def process_attack_command(message):
     try:
         args = message.text.split()
         if len(args) != 3:
-            bot.send_message(message.chat.id, "*Invalid command format. Please use: /Attack target_ip target_port time*", parse_mode='Markdown')
+            bot.send_message(message.chat.id, "*Invalid command format. Please use: /Attack target_ip target_port time @raj14754*", parse_mode='Markdown')
             return
         target_ip, target_port, duration = args[0], int(args[1]), args[2]
 
         if target_port in blocked_ports:
-            bot.send_message(message.chat.id, f"*Port {target_port} is blocked. Please use a different port.@raj14754*", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f"*Port {target_port} is blocked. Please use a different port.*", parse_mode='Markdown')
             return
 
         asyncio.run_coroutine_threadsafe(run_attack_command_async(target_ip, target_port, duration), loop)
@@ -229,10 +229,10 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
-    if message.text == "Instant Plan 🧡":
-        bot.reply_to(message, "*Instant Plan selected*", parse_mode='Markdown')
-    elif message.text == "Instant++ Plan 💥":
-        bot.reply_to(message, "*Instant++ Plan selected*", parse_mode='Markdown')
+    if message.text == "Instant Plan 🧡@raj14754":
+        bot.reply_to(message, "*Instant Plan selected @raj14754*", parse_mode='Markdown')
+    elif message.text == "Instant++ Plan 💥 @raj14754":
+        bot.reply_to(message, "*Instant++ Plan selected @raj14754*", parse_mode='Markdown')
         attack_command(message)
     elif message.text == "Canary Download✔️":
         bot.send_message(message.chat.id, "*Please use the following link for Canary Download: https://t.me/+1YTrwKN4Z-lkZTJl*", parse_mode='Markdown')
@@ -269,3 +269,4 @@ if __name__ == "__main__":
             logging.error(f"An error occurred while polling: {e}")
         logging.info(f"Waiting for {REQUEST_INTERVAL} seconds before the next request...")
         time.sleep(REQUEST_INTERVAL)
+                             
