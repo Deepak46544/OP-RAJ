@@ -20,8 +20,8 @@ TOKEN = '7311450065:AAG75zxiiD5M7OkRXMgkfH96Hnl5gck60Lk'
 MONGO_URI = 'mongodb+srv://Soul:JYAuvlizhw7wqLOb@soul.tsga4.mongodb.net'
 FORWARD_CHANNEL_ID = -100
 CHANNEL_ID = -100
-error_channel_id = -100
-channel id 
+# Admin user IDs
+admin_id = {"5674869424"}
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
