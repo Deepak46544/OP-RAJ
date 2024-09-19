@@ -229,9 +229,9 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
-    if message.text == "Instant Plan 🧡@raj14754":
+    if message.text == "Instant Plan 🧡":
         bot.reply_to(message, "*Instant Plan selected @raj14754*", parse_mode='Markdown')
-    elif message.text == "Instant++ Plan 💥 @raj14754":
+    elif message.text == "Instant++ Plan 💥":
         bot.reply_to(message, "*Instant++ Plan selected @raj14754*", parse_mode='Markdown')
         attack_command(message)
     elif message.text == "Canary Download✔️":
